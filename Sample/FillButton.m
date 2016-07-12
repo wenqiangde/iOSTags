@@ -39,9 +39,13 @@
 
 -(void)setText:(NSString *)aText{
     [super setTitle:aText forState:UIControlStateNormal];
-    //super.text = aText;
-    CGSize size = [self.titleLabel.text sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(320, MAX_SIZE_HEIGHT) lineBreakMode:UILineBreakModeWordWrap];
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, size.width + 12, size.height+9);
+    //super.text = aText;//Label中使用
+    
+    //CGSize size = [self.titleLabel.text sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(320, MAX_SIZE_HEIGHT) lineBreakMode:UILineBreakModeWordWrap];//ios7废除
+    NSDictionary *attributes = @{NSFontAttributeName:self.titleLabel.font};
+    CGRect rect = [self.titleLabel.text boundingRectWithSize:CGSizeMake(320, MAX_SIZE_HEIGHT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, rect.size.width+12, rect.size.height+9);
 }
 
 @end
